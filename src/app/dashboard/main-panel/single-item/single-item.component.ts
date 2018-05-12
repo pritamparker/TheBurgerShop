@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Burgers } from '../../../_models/burgers';
 
 @Component({
@@ -9,9 +9,12 @@ import { Burgers } from '../../../_models/burgers';
 export class SingleItemComponent implements OnInit {
   @Input() recipe: Burgers;
   @Input() index: number;
+  @Output() onChooseBurger: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit() {
   }
-
+  orderBurger(e) {
+    this.onChooseBurger.emit(e)
+  }
 }

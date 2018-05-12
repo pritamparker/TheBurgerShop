@@ -1,5 +1,69 @@
 <div class="container">
   <div class="row">
-    <app-single-item *ngFor="let burger of burgers; let i = index" [recipe]="burger" [index]="i"></app-single-item>
+    <div class="col-md-3">
+      <div class="row">
+        <div class="col-md-12">
+          <input [(ngModel)]="searchText" placeholder="search burgers">
+        </div>
+        <div>
+          <hr />
+          <hr />
+        </div>
+        <div class="col-md-6">
+          <p>Category</p>
+        </div>
+        <div class="col-md-6">
+          <div class="dropdown">
+            <select (change)="filterForCategory($event.target.value)">
+              <option value="all">All</option>
+              <option value="veg">Veg</option>
+              <option value="nonVeg">Non-Veg</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <p>Rating</p>
+        </div>
+        <div class="col-md-6">
+          <div class="dropdown">
+            <select (change)="filterForRating($event.target.value)">
+              <option value="all">All</option>
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <p>Price</p>
+        </div>
+        <div class="col-md-6">
+          <div class="dropdown">
+            <select (change)="filterForPrice($event.target.value)">
+              <option value="all">All</option>
+              <option value="1">min-100</option>
+              <option value="2">100-200</option>
+              <option value="3">200-300</option>
+              <option value="4">300-400</option>
+              <option value="5">400-max</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <p>Order Summary</p>
+        <ul *ngFor="let order of orderBurgers">
+          <li>{{order?.name}}</li>
+        </ul>
+        <button class="btn-block btn-outline-info" *ngIf="orderBurgers.length>0" (click)=orderConfirm()>Confirm Order</button>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <app-single-item *ngFor="let burger of burgers| filter : searchText;let i=index " [recipe]="burger " [index]="i" (onChooseBurger)="updateSummary($event)"></app-single-item>
+      </div>
+    </div>
   </div>
 </div>
