@@ -10,6 +10,7 @@ export class MainPanelComponent implements OnInit {
   public burgers = [];
   public filterBurgers = [];
   public orderBurgers = [];
+  searchText: string;
   message: Object = { 'type': '', 'value': '' };
   constructor(private _apiService: ApiService, private data: DataService) { }
 
